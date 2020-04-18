@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"path"
@@ -119,6 +120,7 @@ func (c *Client) doStreaming(req *http.Request, q chan Event) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
+		log.Printf("request failed with %s (http error %d)", req.RequestURI, resp.StatusCode)
 		q <- &ErrorEvent{parseAPIError("bad request", resp)}
 		return
 	}

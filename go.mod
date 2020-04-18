@@ -1,6 +1,6 @@
 module github.com/tachiniererin/go-mastodon
 
-go 1.12
+go 1.13
 
 require (
 	github.com/PuerkitoBio/goquery v1.5.1
@@ -8,6 +8,7 @@ require (
 	github.com/fatih/color v1.9.0
 	github.com/gorilla/websocket v1.4.2
 	github.com/mattn/go-colorable v0.1.6 // indirect
+	github.com/mattn/go-mastodon v0.0.4
 	github.com/mattn/go-tty v0.0.3
 	github.com/tomnomnom/linkheader v0.0.0-20180905144013-02ca5825eb80
 	github.com/urfave/cli v1.22.4

@@ -66,7 +66,7 @@ func (c *WSClient) streamingWS(ctx context.Context, stream, tag string) (chan Ev
 
 	u, err := changeWebSocketScheme(c.client.Config.Server)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("changeWebSocketScheme: %w", err)
 	}
 	u.Path = path.Join(u.Path, "/api/v1/streaming")
 	u.RawQuery = params.Encode()
@@ -77,6 +77,7 @@ func (c *WSClient) streamingWS(ctx context.Context, stream, tag string) (chan Ev
 		for {
 			err := c.handleWS(ctx, u.String(), q)
 			if err != nil {
+				err = fmt.Errorf("handleWS (%s, %s): %w", stream, tag, err)
 				return
 			}
 		}
