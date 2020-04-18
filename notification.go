@@ -14,11 +14,18 @@ import (
 
 // Notification hold information for mastodon notification.
 type Notification struct {
-	ID        ID        `json:"id"`
-	Type      string    `json:"type"`
-	CreatedAt time.Time `json:"created_at"`
-	Account   Account   `json:"account"`
-	Status    *Status   `json:"status"`
+	ID        ID                   `json:"id"`
+	Type      string               `json:"type"`
+	CreatedAt time.Time            `json:"created_at"`
+	Account   Account              `json:"account"`
+	Status    *Status              `json:"status"`
+	Emoji     string               `json:"emoji"`
+	Target    string               `json:"target"`
+	Pleroma   *PleromaNotification `json:"pleroma,omitempty"`
+}
+
+type PleromaNotification struct {
+	IsSeen bool `json:"is_seen"`
 }
 
 type PushSubscription struct {

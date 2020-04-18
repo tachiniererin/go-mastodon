@@ -64,10 +64,15 @@ type Card struct {
 
 // Conversation hold information for mastodon conversation.
 type Conversation struct {
-	ID         ID         `json:"id"`
-	Accounts   []*Account `json:"accounts"`
-	Unread     bool       `json:"unread"`
-	LastStatus *Status    `json:"last_status"`
+	ID         ID                   `json:"id"`
+	Accounts   []*Account           `json:"accounts"`
+	Unread     bool                 `json:"unread"`
+	LastStatus *Status              `json:"last_status"`
+	Pleroma    *PleromaConversation `json:"pleroma,omitempty"`
+}
+
+type PleromaConversation struct {
+	Recipients []string `json:"recipients"`
 }
 
 // GetFavourites return the favorite list of the current user.

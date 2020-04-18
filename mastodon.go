@@ -246,17 +246,37 @@ const (
 	VisibilityUnlisted      = "unlisted"
 	VisibilityFollowersOnly = "private"
 	VisibilityDirectMessage = "direct"
+	VisibilityLocal         = "local"
 )
 
 // Toot is struct to post status.
 type Toot struct {
-	Status      string     `json:"status"`
-	InReplyToID ID         `json:"in_reply_to_id"`
-	MediaIDs    []ID       `json:"media_ids"`
-	Sensitive   bool       `json:"sensitive"`
-	SpoilerText string     `json:"spoiler_text"`
-	Visibility  string     `json:"visibility"`
-	ScheduledAt *time.Time `json:"scheduled_at,omitempty"`
+	Status      string         `json:"status"`
+	InReplyToID ID             `json:"in_reply_to_id"`
+	MediaIDs    []ID           `json:"media_ids"`
+	Sensitive   bool           `json:"sensitive"`
+	SpoilerText string         `json:"spoiler_text"`
+	Visibility  string         `json:"visibility"`
+	ScheduledAt *time.Time     `json:"scheduled_at,omitempty"`
+	Pleroma     *PleromaStatus `json:"pleroma,omitempty"`
+}
+
+type PleromaStatus struct {
+	Local                bool              `json:"local"`
+	ConversationID       string            `json:"conversation_id"`
+	DirectConversationID string            `json:"direct_conversation_id"`
+	InReplyToAccountAcct string            `json:"in_reply_to_account_id"`
+	Content              map[string]string `json:"content"`
+	SpoilerText          map[string]string `json:"spoiler_text"`
+	ExpiresAt            *time.Time        `json:"expires_at,omitempty"`
+	ThreadMuted          bool              `json:"thread_muted"`
+	EmojiReactions       []EmojiReaction   `json:"emoji_reactions"`
+}
+
+type EmojiReaction struct {
+	Name  string
+	Count int
+	Me    bool
 }
 
 // Mention hold information for mention.
@@ -283,14 +303,20 @@ type History struct {
 
 // Attachment hold information for attachment.
 type Attachment struct {
-	ID          ID             `json:"id"`
-	Type        string         `json:"type"`
-	URL         string         `json:"url"`
-	RemoteURL   string         `json:"remote_url"`
-	PreviewURL  string         `json:"preview_url"`
-	TextURL     string         `json:"text_url"`
-	Description string         `json:"description"`
-	Meta        AttachmentMeta `json:"meta"`
+	ID          ID                 `json:"id"`
+	Type        string             `json:"type"`
+	URL         string             `json:"url"`
+	RemoteURL   string             `json:"remote_url"`
+	PreviewURL  string             `json:"preview_url"`
+	TextURL     string             `json:"text_url"`
+	Description string             `json:"description"`
+	Meta        AttachmentMeta     `json:"meta"`
+	Pleroma     *PleromaAttachment `json:"pleroma,omitempty"`
+}
+
+// PleromaAttachment holds pleroma specific attachment information
+type PleromaAttachment struct {
+	MimeType string `json:"mime_type"`
 }
 
 // AttachmentMeta holds information for attachment metadata.

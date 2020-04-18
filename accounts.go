@@ -11,25 +11,43 @@ import (
 
 // Account hold information for mastodon account.
 type Account struct {
-	ID             ID        `json:"id"`
-	Username       string    `json:"username"`
-	Acct           string    `json:"acct"`
-	DisplayName    string    `json:"display_name"`
-	Locked         bool      `json:"locked"`
-	CreatedAt      time.Time `json:"created_at"`
-	FollowersCount int64     `json:"followers_count"`
-	FollowingCount int64     `json:"following_count"`
-	StatusesCount  int64     `json:"statuses_count"`
-	Note           string    `json:"note"`
-	URL            string    `json:"url"`
-	Avatar         string    `json:"avatar"`
-	AvatarStatic   string    `json:"avatar_static"`
-	Header         string    `json:"header"`
-	HeaderStatic   string    `json:"header_static"`
-	Emojis         []Emoji   `json:"emojis"`
-	Moved          *Account  `json:"moved"`
-	Fields         []Field   `json:"fields"`
-	Bot            bool      `json:"bot"`
+	ID             ID              `json:"id"`
+	Username       string          `json:"username"`
+	Acct           string          `json:"acct"`
+	DisplayName    string          `json:"display_name"`
+	Locked         bool            `json:"locked"`
+	CreatedAt      time.Time       `json:"created_at"`
+	FollowersCount int64           `json:"followers_count"`
+	FollowingCount int64           `json:"following_count"`
+	StatusesCount  int64           `json:"statuses_count"`
+	Note           string          `json:"note"`
+	URL            string          `json:"url"`
+	Avatar         string          `json:"avatar"`
+	AvatarStatic   string          `json:"avatar_static"`
+	Header         string          `json:"header"`
+	HeaderStatic   string          `json:"header_static"`
+	Emojis         []Emoji         `json:"emojis"`
+	Moved          *Account        `json:"moved"`
+	Fields         []Field         `json:"fields"`
+	Bot            bool            `json:"bot"`
+	Pleroma        *PleromaAccount `json:"pleroma,omitempty"`
+}
+
+type PleromaAccount struct {
+	Tags                    []string          `json:"tags"`
+	Relationship            Relationship      `json:"relationship"`
+	IsModerator             bool              `json:"is_moderator"`
+	IsAdmin                 bool              `json:"is_admin"`
+	ConfirmationPending     bool              `json:"confirmation_pending"`
+	HideFollowers           bool              `json:"hide_followers"`
+	HideFollows             bool              `json:"hide_follows"`
+	HideFollowersCount      bool              `json:"hide_followers_count"`
+	HideFollowsCount        bool              `json:"hide_follows_count"`
+	SettingsStore           map[string]string `json:"settings_store"`
+	ChatToken               string            `json:"chat_token"`
+	Deactivated             bool              `json:"deactivated"`
+	AllowFollowingMove      bool              `json:"allow_following_move"`
+	UnreadConversationCount int64             `json:"unread_conversation_count"`
 }
 
 // Field is a Mastodon account profile field.
